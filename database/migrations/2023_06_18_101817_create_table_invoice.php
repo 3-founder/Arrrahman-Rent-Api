@@ -12,16 +12,17 @@ return new class extends Migration {
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_customer');
+            $table->bigInteger('id_customer')->unsigned();
+            $table->foreign('id_customer')->references('id')->on('customer');
             $table->String('nomor_invoice', 9);
             $table->date('tanggal_invoice');
             $table->string('tanda_penerima_pembayaran', 50);
             $table->string('keterangan', 50);
             $table->string('periode_pembayaran', 50);
             $table->string('metode_pembayaran', 20);
-            $table->string('nama_bank', 20);
-            $table->string('no_rekening', 25);
-            $table->string('a_n_rekening', 40);
+            $table->string('nama_bank', 20)->nullable();
+            $table->string('no_rekening', 25)->nullable();
+            $table->string('a_n_rekening', 40)->nullable();
             $table->string('nama_tanda_tangan', 40);
             $table->string('img_tanda_tangan', 150);
             $table->timestamps();

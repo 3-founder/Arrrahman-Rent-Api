@@ -50,6 +50,7 @@ class CustomerController extends Controller
         $endDate = $request->input('end_date');
 
         // $customer = Customer::whereBetween('tanggal', [$startDate, $endDate])->get();
+        //tes
         $customer = DB::table('customer')
             ->join('users', 'users.id', '=', 'customer.id_user')
             ->select('users.*', 'customer.*')

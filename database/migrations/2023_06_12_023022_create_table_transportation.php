@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('transportation', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_customer');
+            $table->bigInteger('id_customer')->unsigned();
+            $table->foreign('id_customer')->references('id')->on('customer');
             $table->date('tanggal_penggunaan');
             $table->string('tujuan', 50);
             $table->string('lama_penggunaan', 30);
@@ -28,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_transportation');
+        Schema::dropIfExists('transportation');
     }
 };
