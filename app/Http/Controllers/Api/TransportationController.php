@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransportationRequest;
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\Transportation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ class TransportationController extends Controller
      */
     public function index($id)
     {
+        $invoce = Invoice::where('id_customer', '=', $id)->get();
         $trans = Transportation::where('id_customer', '=', $id)->get();
         $customer2 = DB::table('customer')
             ->join('users', 'users.id', '=', 'customer.id_user')
@@ -34,6 +36,7 @@ class TransportationController extends Controller
             ),
 
             'customer' => $customer2,
+            'invoce' => $invoce,
         ]) : response()->json([
                         'success' => false,
                         'message' => "Data Transportation",
@@ -41,6 +44,7 @@ class TransportationController extends Controller
                             'transportation' => $trans,
                         ),
                         'customer' => $customer2,
+                        'invoce' => $invoce,
                     ]);
     }
 

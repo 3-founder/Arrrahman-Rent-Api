@@ -35,12 +35,34 @@ class CustomerController extends Controller
         $customers = Customer::find($id);
         return $customers != '[]' ? response()->json([
             'success' => true,
-            'message' => "Data Customer",
+            'message' => "Filter Data Customer",
             'data' => $customers,
         ]) : response()->json([
                         'success' => false,
-                        'message' => "Data Customer",
+                        'message' => "Filter Data Customer",
                         'data' => $customers,
+                    ]);
+    }
+
+    public function filterDate(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // $customer = Customer::whereBetween('tanggal', [$startDate, $endDate])->get();
+        $customer = DB::table('customer')
+            ->join('users', 'users.id', '=', 'customer.id_user')
+            ->select('users.*', 'customer.*')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+        return $customer != '[]' ? response()->json([
+            'success' => true,
+            'message' => "Data Customer",
+            'data' => $customer,
+        ]) : response()->json([
+                        'success' => false,
+                        'message' => "Data Customer",
+                        'data' => $customer,
                     ]);
     }
 

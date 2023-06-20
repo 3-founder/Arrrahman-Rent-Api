@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\TransportationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -37,7 +38,11 @@ Route::post('/user', [UserController::class, 'create']);
 Route::post('/customer', [CustomerController::class, 'create']);
 Route::get('/customer', [CustomerController::class, 'index']);
 Route::get('/customer/{id}', [CustomerController::class, 'indexById']);
+Route::get('/filter/customer', [CustomerController::class, 'filterDate']);
 
 // Transportation
 Route::post('/transportation', [TransportationController::class, 'create']);
 Route::get('/transportation/{id}', [TransportationController::class, 'index']);
+
+// Invoce
+Route::post('/invoce/create', [InvoiceController::class, 'create']);

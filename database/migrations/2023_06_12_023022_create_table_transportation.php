@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->bigInteger('id_customer');
             $table->date('tanggal_penggunaan');
             $table->string('tujuan', 50);
-            $table->string('lama_penggunan', 30);
+            $table->string('lama_penggunaan', 30);
             $table->string('tipe_mobil', 100);
             $table->string('jumlah', 3);
             $table->string('harga', 12);
