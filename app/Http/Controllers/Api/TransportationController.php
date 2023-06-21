@@ -95,7 +95,7 @@ class TransportationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         //
     }
@@ -103,16 +103,48 @@ class TransportationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TransportationRequest $request, $id)
     {
-        //
+        $trans = Transportation::find($id);
+        $trans->id_customer = $request->id_customer;
+        $trans->tanggal_penggunaan = $request->tanggal_penggunaan;
+        $trans->tujuan = $request->tujuan;
+        $trans->lama_penggunaan = $request->lama_penggunaan;
+        $trans->tipe_mobil = $request->tipe_mobil;
+        $trans->jumlah = $request->jumlah;
+        $trans->harga = $request->harga;
+        $result = $trans->save();
+
+        if ($result) {
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil Merubah Data Transportation",
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal Merubah Data Transportation",
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $trans = Transportation::find($id)->delete();
+
+        if ($trans) {
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil Menghapus Data Transportation",
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal Menghapus Data Transportation",
+            ]);
+        }
     }
 }

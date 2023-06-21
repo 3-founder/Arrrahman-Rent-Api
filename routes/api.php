@@ -38,11 +38,14 @@ Route::post('/user', [UserController::class, 'create']);
 Route::post('/customer', [CustomerController::class, 'create']);
 Route::get('/customer', [CustomerController::class, 'index']);
 Route::get('/customer/{id}', [CustomerController::class, 'indexById']);
+Route::post('/edit-customer/{id}', [CustomerController::class, 'update']);
 Route::get('/filter/customer', [CustomerController::class, 'filterDate']);
 
 // Transportation
 Route::post('/transportation', [TransportationController::class, 'create']);
 Route::get('/transportation/{id}', [TransportationController::class, 'index']);
+Route::post('/edit-transportation/{id}', [TransportationController::class, 'update']);
+Route::delete('/delete-transportation/{id}', [TransportationController::class, 'destroy']);
 
 // Invoce
 Route::post('/invoce/create', [InvoiceController::class, 'create']);

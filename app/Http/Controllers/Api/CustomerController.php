@@ -124,15 +124,43 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CustomerRequest $request, $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->kutipan_sewa = $request->kutipan_sewa;
+        $customer->nama_customer = $request->nama_customer;
+        $customer->email = $request->email;
+        $customer->nama_perusahaan = $request->nama_perusahaan;
+        $customer->kota = $request->kota;
+        $customer->nama_jalan = $request->nama_jalan;
+        $customer->kode_pos = $request->kode_pos;
+        $customer->no_hp = $request->no_hp;
+        $customer->tanggal = $request->tanggal;
+        $customer->no_quotation = $request->no_quotation;
+        $customer->komentar = $request->komentar;
+        $customer->total_harga = $request->total_harga;
+        $customer->id_user = $request->id_user;
+        $customer->save();
+        // $customer = Customer::find($id);
+        // $customer->update($request->all());
+
+        if ($customer) {
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil Merubah Data Customer",
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal Merubah Data Customer",
+            ]);
+        }
     }
 
     /**
