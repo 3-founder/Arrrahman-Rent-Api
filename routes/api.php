@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\InvoiceOnlyController;
 use App\Http\Controllers\Api\TransportationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -49,3 +50,9 @@ Route::delete('/delete-transportation/{id}', [TransportationController::class, '
 
 // Invoce
 Route::post('/invoce/create', [InvoiceController::class, 'create']);
+
+// Invoce Only
+Route::get('/invoce-only', [InvoiceOnlyController::class, 'index']);
+Route::get('/invoce-only/{id}', [InvoiceOnlyController::class, 'indexById']);
+Route::post('/invoce-only/create', [InvoiceOnlyController::class, 'create']);
+Route::get('/filter/invoce-only', [InvoiceOnlyController::class, 'filterDate']);

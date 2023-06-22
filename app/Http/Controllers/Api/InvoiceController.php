@@ -52,13 +52,13 @@ class InvoiceController extends Controller
         if ($result) {
             return response()->json([
                 'success' => true,
-                'message' => "Berhasil Menambahkan Data Company",
+                'message' => "Berhasil Menambahkan Data Invoice",
 
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => "Gagal Menambahkan Data Company",
+                'message' => "Gagal Menambahkan Data Invoice",
             ]);
         }
     }
