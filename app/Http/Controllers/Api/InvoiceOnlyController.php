@@ -101,4 +101,21 @@ class InvoiceOnlyController extends Controller
                         'data' => $invoiceonly,
                     ]);
     }
+
+    public function destroy($id)
+    {
+        $invoiceonly = InvoiceOnly::find($id)->delete();
+
+        if ($invoiceonly) {
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil Menghapus Data Invoice Only",
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal Menghapus Data Invoice Only",
+            ]);
+        }
+    }
 }

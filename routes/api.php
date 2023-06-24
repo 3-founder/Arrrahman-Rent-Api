@@ -56,3 +56,4 @@ Route::get('/invoce-only', [InvoiceOnlyController::class, 'index']);
 Route::get('/invoce-only/{id}', [InvoiceOnlyController::class, 'indexById']);
 Route::post('/invoce-only/create', [InvoiceOnlyController::class, 'create']);
 Route::get('/filter/invoce-only', [InvoiceOnlyController::class, 'filterDate']);
+Route::delete('/delete-invoceonly/{id}', [InvoiceOnlyController::class, 'destroy']);
