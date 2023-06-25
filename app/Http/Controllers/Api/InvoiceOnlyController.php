@@ -7,6 +7,7 @@ use App\Http\Requests\InvoiceOnlyRequest;
 use App\Models\InvoiceOnly;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -78,6 +79,69 @@ class InvoiceOnlyController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => "Gagal Menambahkan Data Invoice",
+            ]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $request->validate([
+            'nomor_invoice' => 'required|string|min:9|max:9',
+            'tanggal_invoice' => 'required|date',
+            'tanda_penerima_pembayaran' => 'required|string|min:3|max:50',
+            'keterangan' => 'required|string|min:3|max:50',
+            'periode_pembayaran' => 'required|string|min:3|max:50',
+            'total_pembayaran' => 'required|string|min:3|max:12',
+            'metode_pembayaran' => 'required|string|min:1|max:20',
+            // 'nama_bank' => 'string|min:3|max:20',
+            // 'no_rekening' => 'string|min:10|max:10',
+            // 'a_n_rekening' => 'string|min:3|max:40',
+            'nama_tanda_tangan' => 'required|string|min:3|max:40',
+            'img_tanda_tangan' => 'required',
+        ]);
+
+        $quotationonly = InvoiceOnly::find($id);
+
+        $destination = "storage/" . $quotationonly->img_tanda_tangan;
+        $fileName = "";
+        if ($request->hasFile('new_ttd')) {
+            if (File::exists($destination)) {
+                File::delete($destination);
+            } else {
+                return "Salah";
+            }
+
+            // $fileName = $request->file('new_ttd')->store('company-logo', 'public');
+            $fileName = $request->file('new_ttd')->store('ttd-invoce-only', 'public');
+        } else {
+            $fileName = $request->img_tanda_tangan;
+        }
+
+
+        $quotationonly->nomor_invoice = $request->nomor_invoice;
+        $quotationonly->tanggal_invoice = $request->tanggal_invoice;
+        $quotationonly->tanda_penerima_pembayaran = $request->tanda_penerima_pembayaran;
+        $quotationonly->keterangan = $request->keterangan;
+        $quotationonly->periode_pembayaran = $request->periode_pembayaran;
+        $quotationonly->total_pembayaran = $request->total_pembayaran;
+        $quotationonly->metode_pembayaran = $request->metode_pembayaran;
+        $quotationonly->nama_bank = $request->nama_bank;
+        $quotationonly->no_rekening = $request->no_rekening;
+        $quotationonly->a_n_rekening = $request->a_n_rekening;
+        $quotationonly->nama_tanda_tangan = $request->nama_tanda_tangan;
+        $quotationonly->img_tanda_tangan = $fileName;
+        $result = $quotationonly->save();
+
+        if ($result) {
+            return response()->json([
+                'success' => true,
+                'message' => "Berhasil Merubah Data Invoice Only",
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Gagal Merubah Data Invoice Only",
             ]);
         }
     }

@@ -57,3 +57,4 @@ Route::get('/invoce-only/{id}', [InvoiceOnlyController::class, 'indexById']);
 Route::post('/invoce-only/create', [InvoiceOnlyController::class, 'create']);
 Route::get('/filter/invoce-only', [InvoiceOnlyController::class, 'filterDate']);
 Route::delete('/delete-invoceonly/{id}', [InvoiceOnlyController::class, 'destroy']);
+Route::post('/edit-invoice-only/{id}', [InvoiceOnlyController::class, 'update']); //Edit data Inovoice Only
